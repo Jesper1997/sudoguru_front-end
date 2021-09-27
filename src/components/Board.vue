@@ -1,8 +1,55 @@
 <template>
     <div class="Board">
-        <div  v-bind:key="square.id" v-for="square in squares.squares" >
-            <Square v-bind:square="square"/>
-        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(0,9)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(9,18)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(18,27)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(27,36)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(36,45)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(45,54)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>                
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(54,63)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>                
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(63,72)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>               
+                <tr>
+                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(72,81)">
+                        <Square v-bind:square="square"/>
+                    </td>
+                </tr>    
+            </tbody>
+        </table>
+        <button><h2>Check</h2></button>
     </div>
 </template>
 
@@ -28,3 +75,9 @@ export default {
   }
 }
 </script>
+
+<style>
+table{
+    display: inline;
+}
+</style>>
