@@ -3,53 +3,53 @@
         <table>
             <tbody>
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(0,9)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(0,9)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(9,18)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(9,18)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(18,27)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(18,27)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(27,36)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(27,36)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(36,45)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(36,45)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(45,54)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(45,54)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>                
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(54,63)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(54,63)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>                
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(63,72)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(63,72)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>               
                 <tr>
-                    <td v-bind:key="square.id" v-for="square in squares.squares.slice(72,81)">
+                    <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(72,81)">
                         <Square v-bind:square="square"/>
                     </td>
                 </tr>    
             </tbody>
         </table>
-        <button><h2>Check</h2></button>
+        <button v-on:click="ExcuteCheck()"><h2>Check</h2></button>
     </div>
 </template>
 
@@ -61,18 +61,27 @@ export default {
     components:{
         Square,
     },
-    //props: ["squares"],
     data(){
         return {
-            squares: []
+            BoardViewModel: [],
+            Solution: []
         }
     },
-      created(){
-        axios.get('https://localhost:44390/GenerateSudoku/GetSudoku/9&2')
-      .then(res => this.squares = res.data)
+     async created(){
+        await axios.get('https://localhost:44390/GenerateSudoku/GetSudoku/9&2')
+      .then(res => this.BoardViewModel = res.data)
       .catch(err => console.log(err))
-      console.log("FuckYou")
-  }
+       await axios({
+           method: 'POST',
+           url:'https://localhost:44313/Sudoku/CreateSolution',
+           data: this.BoardViewModel,
+           headers: {
+               'content-type': 'application/json',
+           },
+           })
+      .then(res => this.Solution = res.data)
+      .catch(err => console.log(err))
+  },
 }
 </script>
 
