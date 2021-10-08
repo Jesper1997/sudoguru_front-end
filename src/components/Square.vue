@@ -1,7 +1,7 @@
 <template>
     <div>
-        
-        <button class="button" key="allbuttons" v-if="(square.x <= 2 || square.x >= 6)&&(square.y <= 2 || square.y >= 6)||(square.x > 2 && square.x < 6 && square.y > 2 &&square.y < 6)"
+        <button class="wrongbutton" key="allbuttons" v-if="square.corret == false" v-on:click="AddValue()"> <h3>{{square.value}}</h3> </button>
+        <button class="button" key="allbuttons" v-else-if="(square.x <= 2 || square.x >= 6)&&(square.y <= 2 || square.y >= 6)||(square.x > 2 && square.x < 6 && square.y > 2 &&square.y < 6)"
          v-on:click="AddValue()"><h3>{{square.value}}</h3></button>
          <button class="otherbutton" key="allbuttons" v-else v-on:click="AddValue()"> <h3>{{square.value}}</h3> </button>
     </div>
@@ -28,12 +28,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .button{
     background-color: rgb(0, 177, 24);
 }
 .otherbutton{
     background-color: rgb(0, 255, 34);
+}
+.wrongbutton{
+    background-color: red;
 }
 
 button{
