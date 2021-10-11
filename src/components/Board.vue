@@ -49,12 +49,13 @@
                 </tr>    
             </tbody>
         </table>
-        <button v-on:click="ExcuteCheck()"><h2>Check</h2></button>
+        <div class="checkbutton">
+            <button v-on:click="ExcuteCheck()"><h2>Check</h2></button>
+        </div>
     </div>
 </template>
 
 <script>
-NoSolution: Boolean = false;
 import Square from '../components/Square.vue';
 import axios from 'axios';
 export default {
@@ -63,19 +64,21 @@ export default {
         Square,
     },
     data(){
-        return {            
+        return {       
             BoardViewModel: [],
             Solution: [],
-            BasicCheckResults:[]
+            BasicCheckResults:[],
+            BaseUrl: 'https://localhost:44313/Sudoku/'
         }
     },
+    props:["Difficulty"],
      async created(){
-        await axios.get('https://localhost:44390/GenerateSudoku/GetSudoku/9&2')
+        await axios.get('https://localhost:44390/GenerateSudoku/GetSudoku/9&'+this.Difficulty)
       .then(res => this.BoardViewModel = res.data)
       .catch(err => console.log(err))
        await axios({
            method: 'POST',
-           url:'https://localhost:44313/Sudoku/CreateSolution',
+           url:this.BaseUrl+'CreateSolution',
            data: this.BoardViewModel,
            headers: {
                'content-type': 'application/json',
@@ -87,40 +90,38 @@ export default {
       methods:{
           async ExcuteCheck()
           {
-              console.log("begin check"+ this.Solution.length)
-              if(Array.isArray(this.Solution)|| this.NoSolution)
+              if(Array.isArray(this.Solution))
               {
                   this.NoSolution = true;
                   console.log("Nothing in Solution");
                   await axios({
                       method: 'POST',
-                      url:'https://localhost:44313/Sudoku/BasicCheck',
+                      url:this.BaseUrl+'BasicCheck',
                       data: this.BoardViewModel,
                       headers:{
                           'content-type': 'application/json',
                         },
                     })
-                  .then(res => this.Solution = res.data)
+                  .then(res => this.BasicCheckResults = res.data)
                   .catch(err => console.log(err))
                   if(Array.isArray(this.BasicCheckResults))
                   {
                       for(let x = 0; x < this.BasicCheckResults.length; x++)
                       {
                           this.BoardViewModel[x].correct = this.BasicCheckResults[x].correct
+                          console
                       }
                   }
               }
               else{
-                  console.log("There somthing in solution")
                   for(let x = 0; x < this.BoardViewModel.squares.length; x++)
                   {
-                      console.log(x)
-                      if(this.BoardViewModel.squares[x] != this.Solution.sudokuSquares[x].value && this.BoardViewModel.squares.value != 0)
+                      if(this.BoardViewModel.squares[x].value != this.Solution.sudokuSquares[x].value && this.BoardViewModel.squares[x].value != 0)
                       {
+                          console.log()
                           this.BoardViewModel.squares[x].correct = false;
                       }
                   }
-                  console.log("end check")
               }
               console.log("update")
               this.$forceUpdate();
@@ -132,5 +133,11 @@ export default {
 <style>
 table{
     display: inline;
+    padding: 10px;
 }
-</style>>
+.check_button{
+    display: inline;
+    padding: 10px;
+    width: 50px;
+}
+</style>

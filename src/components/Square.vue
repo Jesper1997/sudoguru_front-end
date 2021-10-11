@@ -1,16 +1,29 @@
 <template>
     <div>
-        <button class="wrongbutton" key="allbuttons" v-if="square.corret == false" v-on:click="AddValue()"> <h3>{{square.value}}</h3> </button>
-        <button class="button" key="allbuttons" v-else-if="(square.x <= 2 || square.x >= 6)&&(square.y <= 2 || square.y >= 6)||(square.x > 2 && square.x < 6 && square.y > 2 &&square.y < 6)"
-         v-on:click="AddValue()"><h3>{{square.value}}</h3></button>
-         <button class="otherbutton" key="allbuttons" v-else v-on:click="AddValue()"> <h3>{{square.value}}</h3> </button>
+        <button v-bind:class="{wrongbutton: !this.square.correct,button: Darkercolor, otherbutton: !Darkercolor}"><h3>{{square.value}}</h3></button>
     </div>
 </template>
 
 <script>
 export default {
+    data(){
+        
+        return{
+            Darkercolor: false
+        }
+    },
     name : "Square",
     props:["square"],
+
+    created(){
+        if((this.square.x <= 2 || this.square.x >= 6)&&(this.square.y <= 2 || this.square.y >= 6)||(this.square.x > 2 && this.square.x < 6 && this.square.y > 2 && this.square.y < 6))
+        {
+            this.Darkercolor = true;
+        }
+        else{
+            this.Darkercolor = false;
+        }
+    },
 
     methods:{
         AddValue(){
@@ -30,13 +43,15 @@ export default {
 
 <style scoped>
 .button{
-    background-color: rgb(0, 177, 24);
+    background-color: #00B118 /*rgb(0, 177, 24);*/
 }
 .otherbutton{
-    background-color: rgb(0, 255, 34);
+    background-color: #00FF22 /*rgb(0, 255, 34);*/
 }
 .wrongbutton{
-    background-color: red;
+    color: white/*red;*/;
+    background-color:red;
+    
 }
 
 button{

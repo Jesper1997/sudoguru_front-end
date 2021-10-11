@@ -1,8 +1,20 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <Board/>
+    <div class="menu_bar">
+      <div class="menu">
+        <input type="radio" id="one" value= 1 v-model="picked">
+        <label for="one"> One </label>
+        <input type="radio" id="two" value= 2 v-model="picked">
+        <label for="two"> Two </label>
+        <input type="radio" id="three" value= 3 v-model="picked">
+        <label for="three"> Three </label>
+        <button v-on:click="createboard = !createboard"> Create new board </button>
+      </div>
+    </div>
+    <br>
+    <div class="board" v-if="createboard">
+      <Board v-bind:Difficulty="picked"/>
+    </div>
   </div>
 </template>
 
@@ -21,7 +33,9 @@ export default {
 
   data(){
     return {
-      board: []
+      board: [],
+      picked:1,
+      createboard: false
     }
   },
   methods: {
@@ -29,3 +43,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.menu{
+  background-color:#00B118;
+  padding: 10px;
+  max-width: 50%;
+  display: inline;
+  border-width: 10px;
+  border-style: dashed;
+  border-color: #00FF22;
+
+}
+</style>
