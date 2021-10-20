@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button v-bind:class="{wrongbutton: !this.square.correct,button: Darkercolor, otherbutton: !Darkercolor}"><h3>{{square.value}}</h3></button>
+        <button v-on:click="AddValue" v-bind:class="{wrongbutton: !this.square.correct,button: Darkercolor, otherbutton: !Darkercolor}"><h3>{{square.value}}</h3></button>
     </div>
 </template>
 

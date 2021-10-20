@@ -53,6 +53,5 @@ export default {
   border-width: 10px;
   border-style: dashed;
   border-color: #00FF22;
-
 }
 </style>
