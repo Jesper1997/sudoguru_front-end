@@ -27,6 +27,7 @@ export default {
 
     methods:{
         AddValue(){
+            console.log("addvalue");
             if(this.square.value == 9)
             {
                 this.square.value = 0
