@@ -1,54 +1,68 @@
 <template>
     <div class="Board">
+        <div class="sidebar">
+            <b-sidebar id="sidebar-right" title="sidebar" right shadow>
+                <div class="px-3 py-2">
+                    <b-container class="bv">
+                        <b-row v-for="number in allnumbers" :key=number v-on:click="SetPickedNumber(number)">
+                            <b-button>{{number}}</b-button>
+
+                        </b-row>
+                    </b-container>
+                    <p>help me</p>
+                </div>
+            </b-sidebar>
+        </div>
         <table>
             <tbody>
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(0,9)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(9,18)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(18,27)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(27,36)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(36,45)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(45,54)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>                
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(54,63)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>                
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(63,72)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>               
                 <tr>
                     <td v-bind:key="square.id" v-for="square in BoardViewModel.squares.slice(72,81)">
-                        <Square v-bind:square="square"/>
+                        <Square v-bind:square="square" v-bind:value="pickednumber"/>
                     </td>
                 </tr>    
             </tbody>
         </table>
+        <b-button v-b-toggle.sidebar-right title="sidebar"><p>Select number</p></b-button>
         <div class="checkbutton">
             <button v-on:click="ExcuteCheck()"><h2>Check</h2></button>
         </div>
@@ -58,6 +72,8 @@
 <script>
 import Square from '../components/Square.vue';
 import axios from 'axios';
+import GenerateSudokuDataservice from '../Service/GenerateSudokuDataServices'
+import SolutionDataService from '../Service/SolutionDataService'
 export default {
     name: "Board",
     components:{
@@ -68,26 +84,35 @@ export default {
             BoardViewModel: [],
             Solution: [],
             BasicCheckResults:[],
-            BaseUrl: 'https://localhost:44313/Sudoku/'
+            BaseUrl: 'https://localhost:44313/Sudoku/',
+            allnumbers :[1,2,3,4,5,6,7,8,9],
+            pickednumber: 0,
         }
     },
     props:["Difficulty"],
      async created(){
-        await axios.get('https://localhost:44390/GenerateSudoku/GetSudoku/9&'+this.Difficulty)
+        await GenerateSudokuDataservice.GenerateNewSudoku(this.Difficulty)
       .then(res => this.BoardViewModel = res.data)
       .catch(err => console.log(err))
-       await axios({
+       /*await axios({
            method: 'POST',
            url:this.BaseUrl+'CreateSolution',
            data: this.BoardViewModel,
            headers: {
                'content-type': 'application/json',
            },
-        })
+        })*/
+        await SolutionDataService.GenerateASolution(this.BoardViewModel)
       .then(res => this.Solution = res.data)
       .catch(err => console.log(err))
   },
       methods:{
+          SetPickedNumber(number)
+          {
+              this.pickednumber = number
+              console.log(number)
+          },
+
           async ExcuteCheck()
           {
               if(Array.isArray(this.Solution))

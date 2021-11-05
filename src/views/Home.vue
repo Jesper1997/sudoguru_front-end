@@ -8,7 +8,7 @@
         <label for="two"> Two </label>
         <input type="radio" id="three" value= 3 v-model="picked">
         <label for="three"> Three </label>
-        <button v-on:click="createboard = !createboard"> Create new board </button>
+        <b-button pill variant="primary" v-on:click="createboard = !createboard"> Create new board </b-button>
       </div>
     </div>
     <br>
