@@ -7,7 +7,6 @@
         button: Darkercolor,
         otherbutton: !Darkercolor,
       }"
-      variant="success"
       ><h3>{{ square.value }}</h3></b-button
     >
   </div>
