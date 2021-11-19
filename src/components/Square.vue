@@ -1,6 +1,7 @@
 <template>
   <div b-col lg="4" class="pub-2">
     <b-button
+      variant="success"
       v-on:click="AddValue()"
       v-bind:class="{
         wrongbutton: !this.square.correct,

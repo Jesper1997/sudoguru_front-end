@@ -16,6 +16,17 @@
               >
             </b-col>
           </b-row>
+          <b-row>
+          </b-row>
+          <b-row>
+            <b-col>
+          <div class="checkbutton">
+            <b-button pill variant="outline-success" v-on:click="ExcuteCheck()"
+              ><h2>Check</h2></b-button
+            >
+          </div>
+            </b-col>
+          </b-row>
         </b-container>
         <div v-if="errorMessage != null">
           <p class="text-danger">{{ this.errorMessage }}</p>
@@ -36,15 +47,6 @@
               }}</b-button>
               <b-button pill v-else variant="success">{{ number }}</b-button>
             </b-row>
-            <br />
-            <div class="checkbutton">
-              <b-button
-                pill
-                variant="outline-success"
-                v-on:click="ExcuteCheck()"
-                ><h2>Check</h2></b-button
-              >
-            </div>
           </b-container>
         </div>
       </b-sidebar>
