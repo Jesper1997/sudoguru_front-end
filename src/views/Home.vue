@@ -10,13 +10,13 @@
           </b-col>
           <b-col>
             <b-navbar-brand>
-              <b-button variant="light" v-on:click="SetDifficulty(1)"
+              <b-button class="easy" variant="light" v-on:click="SetDifficulty(1)"
                 >Easy</b-button
               >
-              <b-button variant="secondary" v-on:click="SetDifficulty(2)"
+              <b-button class="medium" variant="secondary" v-on:click="SetDifficulty(2)"
                 >Medium</b-button
               >
-              <b-button variant="dark" v-on:click="SetDifficulty(3)"
+              <b-button class="hard" variant="dark" v-on:click="SetDifficulty(3)"
                 >Hard</b-button
               >
             </b-navbar-brand>

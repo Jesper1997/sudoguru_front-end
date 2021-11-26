@@ -2,9 +2,9 @@ import { mount } from "@vue/test-utils";
 import Square from "@/components/Square"
 
 //Group of tests
-describe("Square.vue", async () => {
+describe("Square.vue", () => {
     //It == testBlock
-    it("renders number when given a square", () => {
+    it("renders number when given a square", async() => {
         //The component that you wnat to test
         const wrapper = mount(Square, {
             propsData: {
