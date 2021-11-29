@@ -22,3 +22,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## other projects needed:
+```
+https://github.com/Jesper1997/SudoguruMainBackend.git
+https://github.com/Jesper1997/Sudoguru.git
