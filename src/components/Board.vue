@@ -1,6 +1,6 @@
 <template>
   <div class="Board">
-    <div class="RightSidebar">
+    <div class="leftsidebar">
       <b-sidebar id="sidebar" title="Options" shadow>
         <br />
         <b-container>
@@ -16,15 +16,17 @@
               >
             </b-col>
           </b-row>
-          <b-row>
-          </b-row>
+          <b-row> </b-row>
           <b-row>
             <b-col>
-          <div class="checkbutton">
-            <b-button pill variant="outline-success" v-on:click="ExcuteCheck()"
-              ><h2>Check</h2></b-button
-            >
-          </div>
+              <div class="checkbutton">
+                <b-button
+                  pill
+                  variant="outline-success"
+                  v-on:click="ExcuteCheck()"
+                  ><h2>Check</h2></b-button
+                >
+              </div>
             </b-col>
           </b-row>
         </b-container>
@@ -33,7 +35,7 @@
         </div>
       </b-sidebar>
     </div>
-    <div class="leftsidebar">
+    <div class="rightsidebar">
       <b-sidebar id="sidebar-right" title="Pick a number" right shadow>
         <div class="px-3 py-2">
           <b-container class="bv">
@@ -42,10 +44,12 @@
               :key="number"
               v-on:click="SetPickedNumber(number)"
             >
-              <b-button pill v-if="number % 2 == 0" variant="outline-success">{{
-                number
-              }}</b-button>
-              <b-button pill v-else variant="success">{{ number }}</b-button>
+              <b-button v-bind:class= "'number'+ number" pill v-if="number % 2 == 0" variant="outline-success">
+                <span> {{ number }} </span></b-button
+              >
+              <b-button v-bind:class= "'number'+ number" pill v-else variant="success">
+               <span>{{ number }}</span></b-button
+              >
             </b-row>
           </b-container>
         </div>
@@ -138,6 +142,7 @@
             ><b-icon icon="gear-fill" aria-hidden="true" /> options</b-button
           >
           <b-button
+            class="rightsidebar"
             v-b-toggle.sidebar-right
             title="rightsidebar"
             variant="outline-success"
