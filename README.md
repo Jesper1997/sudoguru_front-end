@@ -27,3 +27,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 https://github.com/Jesper1997/SudoguruMainBackend.git
 https://github.com/Jesper1997/Sudoguru.git
+```
+## tests in the project
+```
+The test in the project can are made using Vue jest plugin 
