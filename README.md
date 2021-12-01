@@ -19,6 +19,10 @@ npm run build
 ```
 npm run lint
 ```
+## project framework
+```
+Framework: Vue.js: 2
+```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
