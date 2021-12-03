@@ -14,7 +14,7 @@
           type="text"
           v-model="name"
           name="name"
-          placeholder="insery username"
+          placeholder="insert username"
         />
         <h4>password</h4>
         <input
