@@ -59,7 +59,7 @@
       <b-row>
         <b-col>
           <table>
-            <tbody>
+            <tbody v-if="BoardViewModel.squares">
               <tr>
                 <td
                   v-bind:key="square.id"
@@ -167,7 +167,9 @@ export default {
   },
   data() {
     return {
-      BoardViewModel: [],
+      BoardViewModel: {
+        square: []
+      },
       Solution: [],
       BasicCheckResults: [],
       allnumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
